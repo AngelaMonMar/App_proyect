@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="angela.montoya.app_proyect.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <!--
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="angela.montoya.app_proyect.ui.gallery.listado.ListEstafaFragment"
+        android:label=""
+        tools:layout="@layout/fragment_list_estafa" />
+-->
+
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="angela.montoya.app_proyect.ui.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/nav_register"
+        android:name="angela.montoya.app_proyect.ui.register_formulario.Register_formFragment"
+        android:label="Formulario de registro"
+        tools:layout="@layout/register_fragment" />
+
+    <fragment
+        android:id="@+id/nav_estafa"
+        android:name="angela.montoya.app_proyect.ui.estafa_formulario.Estafa_formFragment"
+        android:label="fragment_denuncia"
+        tools:layout="@layout/fragment_pbc_estafa" />
+    <fragment
+        android:id="@+id/nav_list_frag"
+        android:name="angela.montoya.app_proyect.ui.gallery.listado.ListEstafaFragment"
+        android:label="fragment_list_estafa"
+        tools:layout="@layout/fragment_list_estafa" />
+
+</navigation>

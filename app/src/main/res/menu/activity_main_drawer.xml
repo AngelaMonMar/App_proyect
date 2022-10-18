@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="@string/menu_home" />
+
+        <item
+            android:id="@+id/nav_list_frag"
+            android:icon="@drawable/ic_menu_list"
+            android:title="Listado" />
+
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_menu_login"
+            android:title="@string/menu_login" />
+
+
+        <item
+            android:id="@+id/nav_register"
+            android:icon="@drawable/ic_menu_registration"
+            android:title="@string/menu_register" />
+
+
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/grupoLogueado">
+    <item android:title="Communicate">
+        <menu>
+
+            <item
+                android:id="@+id/nav_estafa"
+                android:icon="@drawable/ic_menu_slideshow"
+                android:title="@string/menu_estafa" />
+            <item
+                android:id="@+id/nav_contacto"
+                android:icon="@drawable/ic_menu_settings"
+                android:title="Contactar" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_menu_logout"
+                android:title="Salir" />
+        </menu>
+    </item>
+    </group>
+</menu>
+
+
+<!--
+     <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_settings"
+            android:title="Settings" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_menu_logout"
+            android:title="Logout" />
+-->

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top"
+    android:orientation="vertical"
+    tools:context=".IncialFragment">
+
+
+
+        <EditText
+            android:id="@+id/et_hostIp"
+            android:layout_width="307dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="Introduce el Host" />
+
+        <Button
+            android:id="@+id/button_enviarIp"
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="18dp"
+            android:text="Enviar" />
+
+
+
+
+</LinearLayout>

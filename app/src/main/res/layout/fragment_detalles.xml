@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_detalles"
+    android:orientation="vertical"
+    tools:context=".ui.gallery.details.DetallesFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:id="@+id/contenedorsuperior"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_detalles"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_det_nick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:hint="nick"
+                        android:textAlignment="inherit" />
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/tv_det_fechax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:hint="fecha" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal"
+                    android:weightSum="6">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:fontFamily="sans-serif-medium"
+                        android:inputType="textPersonName"
+                        android:text="Titulo"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_det_titulo"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:layout_weight="4.9"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="left"
+                        android:hint="titulo" />
+
+                </LinearLayout>
+
+                <!--CATEGORY-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal"
+                    android:weightSum="6">
+
+                    <TextView
+                        android:layout_width="56dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:ems="10"
+                        android:fontFamily="sans-serif-medium"
+                        android:inputType="textPersonName"
+                        android:text="Categoría"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_det_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_weight="5.2"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
+                        android:padding="4dp"
+                        android:text="Datos estafador"
+                        android:textAlignment="center" />
+
+                    <!--nombre-->
+                    <LinearLayout
+                        android:id="@+id/layout_det_nombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+                        <TextView
+                            android:layout_width="46dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.7"
+                            android:ems="10"
+                            android:fontFamily="sans-serif-medium"
+                            android:inputType="textPersonName"
+                            android:text="Nombre "
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_det_nombre"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_weight="5.2"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <!--Email-->
+                    <LinearLayout
+                        android:id="@+id/layout_det_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+                        <TextView
+                            android:layout_width="44dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.7"
+                            android:ems="10"
+                            android:fontFamily="sans-serif-medium"
+                            android:inputType="textPersonName"
+                            android:text="Email "
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_det_email"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_weight="5.2"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <!--telefono-->
+                    <LinearLayout
+                        android:id="@+id/layout_det_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+                        <TextView
+                            android:layout_width="48dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.7"
+                            android:ems="10"
+                            android:fontFamily="sans-serif-medium"
+                            android:inputType="textPersonName"
+                            android:text="Teléfono "
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_det_phone"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_weight="5.2"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <!--Url-->
+                    <LinearLayout
+                        android:id="@+id/layout_det_url"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+                        <TextView
+                            android:layout_width="2dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.7"
+                            android:ems="10"
+                            android:fontFamily="sans-serif-medium"
+                            android:inputType="textPersonName"
+                            android:text="Url "
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_det_url"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_weight="5.2"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <!--Url-->
+                    <LinearLayout
+                        android:id="@+id/layout_det_tags"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+                        <TextView
+                            android:layout_width="6dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.7"
+                            android:ems="10"
+                            android:fontFamily="sans-serif-medium"
+                            android:inputType="textPersonName"
+                            android:text="Tags "
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_det_tags"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_weight="5.2"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--contenido-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:id="@+id/tv_det_contenido"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="5.2"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="left" />
+                </LinearLayout>
+
+
+                <!--  <Button
+                    android:id="@+id/button_comentarpublic"
+                    style="@style/Button1"
+                    android:layout_width="342dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:text="comentar" />-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contenedor_rv_coment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_det_comentario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_det_comment_islogged"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textAlignment="gravity"
+                android:textColor="#D67777" />
+
+            <LinearLayout
+                android:id="@+id/contenedor_inferior_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="4dp"
+                android:layout_marginTop="8dp"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <!--  <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dejen un comentario" />-->
+
+                <EditText
+                    android:id="@+id/et_det_comentario"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="#EEEDE7"
+                    android:hint="dejen un comentario"
+                    android:padding="8dp" />
+
+                <Button
+                    android:id="@+id/btn_det_enviar_comment"
+                    style="@style/Button1"
+                    android:layout_width="342dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/button_send" />
+
+            </LinearLayout>
+
+            <!--     <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>-->
+        </LinearLayout>
+
+
+    </ScrollView>
+</LinearLayout>
