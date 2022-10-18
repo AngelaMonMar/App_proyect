@@ -62,8 +62,6 @@ https://es.stackoverflow.com/questions/45118/como-implementar-un-menú-navigatio
 
 colores
 https://coolors.co/f06543-e8e9eb-e6e7e6-e4e4e0-e2e2db-e0dfd5-313638-f09d51
-
-esto es un cambio pa git
 * */
 
 public class MainActivity extends AppCompatActivity implements Interface_comunica,Serializable, ListEstafaFragment.iEnvio {
