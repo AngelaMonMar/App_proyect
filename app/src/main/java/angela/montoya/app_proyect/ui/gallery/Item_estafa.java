@@ -10,7 +10,7 @@ public class Item_estafa implements Serializable {
     private String fecha;
     private String contenido;
 
-    public Item_estafa(int id, String color, String category,String titulo,  String fecha, String contenido) {
+    public Item_estafa(int id, String color,String titulo ,String category,  String fecha, String contenido) {
         this.id=id;
         this.color = color;
         this.titulo = titulo;

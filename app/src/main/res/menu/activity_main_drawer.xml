@@ -19,14 +19,12 @@
             android:icon="@drawable/ic_menu_login"
             android:title="@string/menu_login" />
 
-
         <item
             android:id="@+id/nav_register"
             android:icon="@drawable/ic_menu_registration"
             android:title="@string/menu_register" />
-
-
     </group>
+
     <group android:checkableBehavior="single"
         android:id="@+id/grupoLogueado">
     <item android:title="Communicate">
@@ -38,7 +36,7 @@
                 android:title="@string/menu_estafa" />
             <item
                 android:id="@+id/nav_contacto"
-                android:icon="@drawable/ic_menu_settings"
+                android:icon="@drawable/ic_menu_mail"
                 android:title="Contactar" />
             <item
                 android:id="@+id/nav_logout"
@@ -48,15 +46,3 @@
     </item>
     </group>
 </menu>
-
-
-<!--
-     <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_settings"
-            android:title="Settings" />
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_menu_logout"
-            android:title="Logout" />
--->

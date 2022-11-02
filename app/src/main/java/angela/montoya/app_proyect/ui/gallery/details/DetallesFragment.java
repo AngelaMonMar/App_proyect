@@ -47,11 +47,9 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
 
     private TextView tv_det_isLog;
 
-
     private RecyclerView recyclerView_coment;
     private Button btn_enviar_comment;
     private EditText et_comentario;
-
 
     private Interface_comunica interface_comunica;
     private Activity activity;
@@ -68,8 +66,6 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
     private LinearLayout layout_det_tags;
 
     public ConexionServer conexion;
-
-
 
     public DetallesFragment() {
         // Required empty public constructor
@@ -208,7 +204,6 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
 
            }
 
-
            if(isLoged){ // si esta loged se muestra layout poner comment
                layout_comentario.setVisibility(View.VISIBLE);
                tv_det_isLog.setVisibility(view.GONE);
@@ -219,8 +214,6 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
            }
 
         }
-
-
 
         RecyclerView recyclerView=view.findViewById(R.id.recycle_det_comentario);
         recyclerView.setHasFixedSize(true);
@@ -241,7 +234,6 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
                 String comment=et_comentario.getText().toString();
                 int id=getId_estafa();
 
-                // hay q add est  a la BD
                 String msg= COMENTARIO +SEPARADOR+comment+SEPARADOR+Integer.toString(id)+SEPARADOR+fecha_str;
 
                 if(!TextUtils.isEmpty(msg)){

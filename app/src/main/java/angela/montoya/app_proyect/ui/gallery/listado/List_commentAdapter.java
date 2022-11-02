@@ -1,6 +1,7 @@
 package angela.montoya.app_proyect.ui.gallery.listado;
 
 import android.content.Context;
+
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 
 import java.util.List;
 

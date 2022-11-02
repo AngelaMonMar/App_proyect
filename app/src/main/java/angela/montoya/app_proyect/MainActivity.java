@@ -24,6 +24,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,7 +65,7 @@ colores
 https://coolors.co/f06543-e8e9eb-e6e7e6-e4e4e0-e2e2db-e0dfd5-313638-f09d51
 * */
 
-public class MainActivity extends AppCompatActivity implements Interface_comunica,Serializable, ListEstafaFragment.iEnvio {
+public class MainActivity extends AppCompatActivity implements Interface_comunica,Serializable, ListEstafaFragment.iEnvio{
     static final public String KEY="KEY";
     static final public String ISLOGGED="ISLOGGED";
 
@@ -83,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
     private MenuItem item_form_home;
     private MenuItem item_form_register;
     private MenuItem item_form_login;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -624,6 +629,8 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
         }
         return super.onKeyDown(keyCode, event);
     }*/
+
+
 
     private void enviarToast(String msg){
         CharSequence text = msg;

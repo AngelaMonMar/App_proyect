@@ -3,9 +3,13 @@ package angela.montoya.app_proyect.ui.gallery.listado;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
@@ -14,13 +18,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
 import angela.montoya.app_proyect.R;
 import angela.montoya.app_proyect.ui.gallery.Item_estafa;
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> implements Filterable {
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
     private List<Item_estafa> list_itemEstafas;
     private List<Item_estafa> list_item_all;
 
@@ -47,15 +53,15 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
     }
 
     @Override
-    public void onBindViewHolder(final ListAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ListAdapter.ViewHolder holder, final int position) {
         holder.bindData(list_itemEstafas.get(position));
 
         final Item_estafa element= list_itemEstafas.get(position);
         holder.contenedor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                elListener.onItemClick(element,position);  // El puente
+
             }
         });
 
@@ -71,9 +77,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
         return list_itemEstafas.size();
     }
 
-    public void setItems(List<Item_estafa> itemList){
+ /*   public void setItems(List<Item_estafa> itemList){
         this.list_itemEstafas =itemList;
-    }
+    }*/
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -92,58 +98,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
 
         void bindData(final Item_estafa item){
             imageView.setColorFilter(Color.parseColor(item.getColor()), PorterDuff.Mode.SRC_IN);
-            titulo.setText(item.getCategory());
-            category.setText(item.getTitulo());
+            titulo.setText(item.getTitulo());
+            category.setText(item.getCategory());
             fecha.setText(item.getFecha());
         }
 
     }
 
 
-
-
-    //----FILTRAR
-    @Override
-    public Filter getFilter() {
-        return filter;
-    }
-
-    Filter filter=new Filter() {
-        // run on background hilo
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<Item_estafa> filteredList = new ArrayList<>();
-
-            if (charSequence == null || charSequence.length() == 0) {
-                filteredList.addAll(list_item_all);
-            } else {
-                String filterPattern = charSequence.toString().toLowerCase().trim();
-                for (Item_estafa element : list_item_all) {
-                    if (element.getTitulo().toLowerCase().contains(filterPattern)||
-                            element.getCategory().toLowerCase().contains(filterPattern)||
-                            element.getFecha().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(element);
-                    }
-                }
-            }
-
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-            return results;
-        }
-
-        // on a UI thread
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            list_itemEstafas.clear();
-            list_itemEstafas.addAll((List) filterResults.values);
-            notifyDataSetChanged();
-        }
-    };
-
-    //---------------FIN FILTRAR
-
-
-
-
 }
+
+
+
+
+
+
