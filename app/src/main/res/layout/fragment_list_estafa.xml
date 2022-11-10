@@ -28,9 +28,8 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@android:id/empty"
-        android:text="No results found."
-        android:gravity="center"
+        android:id="@+id/tv_empty"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:gravity="center" />
 </LinearLayout>

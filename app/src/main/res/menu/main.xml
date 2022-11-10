@@ -2,21 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<!--    <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/ic_baseline_search_24"
-        android:title="@string/search"
-        android:orderInCategory="1"
-        android:inputType="textNoSuggestions"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always|collapseActionView"
-        />-->
-
-
+    <!--menu drawer right
     <item
         android:id="@+id/action_openRight"
         android:icon="@drawable/ic_menu_logout"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="always" />
+        app:showAsAction="always" />-->
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_info"
+        android:orderInCategory="100"
+        android:title="@string/action_info"
+        app:showAsAction="ifRoom" />
 </menu>

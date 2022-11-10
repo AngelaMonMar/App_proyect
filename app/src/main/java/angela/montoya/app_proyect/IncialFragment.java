@@ -63,7 +63,7 @@ public class IncialFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String host= et_hostIp.getText().toString();
-               //  host= "192.168.1.138";
+                
                 if(!host.isEmpty())
                     interface_comunica.icomunicacion(host, R.id.button_enviarIp);
                 else

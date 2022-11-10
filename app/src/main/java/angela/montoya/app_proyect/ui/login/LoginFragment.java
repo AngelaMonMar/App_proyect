@@ -20,6 +20,9 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import angela.montoya.app_proyect.utils.Interface_comunica;
 import angela.montoya.app_proyect.R;
 import angela.montoya.app_proyect.modelo.ConexionServer;
@@ -86,24 +89,35 @@ public class LoginFragment extends Fragment {
                     username =et_username.getText().toString();
                     pw=et_password.getText().toString();
 
-                    String msg= LOGIN + ":" + username + ":" + pw + ":" + "false";// pendiente implementar checkbox recordarpw
+                    String msg= LOGIN + SEPARADOR + username + SEPARADOR + pw + SEPARADOR + "false"+SEPARADOR+"APPCLIENT";// pendiente implementar checkbox recordarpw
                     //String s= interface_comunica.icomunicacion(msg);// envio al Main , el main envia al server devoviendo me la respuesta
                     String s= interface_comunica.icomunicacion(msg, R.id.button_signIn);// envio al Main , el main envia al server devoviendo me la respuesta
                     tv_error_login.setTextColor(Color.RED);
-                    tv_error_login.setText(" ");
+                    tv_error_login.setText(" "+s);
+                    // para q desaparezca
+                    Timer t = new Timer(false);
+                    t.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            activity.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    tv_error_login.setText("");
+                                }
+                            });
+                        }
+                    }, 5000); //5000 equivale a 5 segundos (en milisegundos)
 
                 }else{
                     tv_error_login.setTextColor(Color.RED);
-                    tv_error_login.setText("Los datos introducidos son incorrectos");
+                    tv_error_login.setText(R.string.txt_error_datos_login);
+
                 }
                  et_username.setText("");
                  et_password.setText("");
             }
         });
 
-        // recibe respuesta del server
-        //email existe--> confirmacion de la peticion, se debe de cerrar este frame
-
+        //BOTON OLVIDO PW
         this.button_forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +135,7 @@ public class LoginFragment extends Fragment {
                 Log.v(TAG_LOGIN, "||-------------------------button_signup ");
                 String s= interface_comunica.icomunicacion("mensaje ", R.id.button_signup);
                 tv_error_login.setText("  "+s);
+
                 et_username.setText("");
                 et_password.setText("");
             }

@@ -20,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import angela.montoya.app_proyect.R;
 import angela.montoya.app_proyect.modelo.ConexionServer;
@@ -27,6 +29,7 @@ import angela.montoya.app_proyect.ui.gallery.Item_comment;
 import angela.montoya.app_proyect.ui.gallery.Item_estafa;
 import angela.montoya.app_proyect.ui.gallery.listado.ListEstafaFragment;
 import angela.montoya.app_proyect.ui.gallery.listado.List_commentAdapter;
+import angela.montoya.app_proyect.utils.Convertidor_fecha;
 import angela.montoya.app_proyect.utils.Interface_comunica;
 
 import static angela.montoya.app_proyect.utils.Protocolo.*;
@@ -44,6 +47,8 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
     private TextView tv_det_url;
     private TextView tv_det_phone;
     private TextView tv_det_tags;
+    private TextView tv_det_contadorVisistas;
+    private TextView tv_det_respuestaServer;
 
     private TextView tv_det_isLog;
 
@@ -57,6 +62,8 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
     private int id_estafa;
     private List_commentAdapter listAdapter;
     private  List<Item_comment> lista_comments;
+    private  Boolean isLoged;
+    RecyclerView recyclerView;
 
     private LinearLayout layout_comentario;
     private LinearLayout layout_det_nombre;
@@ -65,10 +72,15 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
     private LinearLayout layout_det_phone;
     private LinearLayout layout_det_tags;
 
+    private Item_estafa element;
+
     public ConexionServer conexion;
+
+    private Convertidor_fecha converter;
 
     public DetallesFragment() {
         // Required empty public constructor
+        converter=new Convertidor_fecha();
     }
 
     public static DetallesFragment newInstance(String param1, String param2) {
@@ -97,6 +109,8 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
         tv_det_url=view.findViewById(R.id.tv_det_url);
         tv_det_tags=view.findViewById(R.id.tv_det_tags);
         tv_det_phone=view.findViewById(R.id.tv_det_phone);
+        tv_det_contadorVisistas =view.findViewById(R.id.tv_det_cntdr_visitas);
+        tv_det_respuestaServer=view.findViewById(R.id.tv_det_respuestaServer);
 
         tv_det_isLog=view.findViewById(R.id.tv_det_comment_islogged);
 
@@ -124,8 +138,8 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
 
         if (getArguments() != null) {
             Bundle b=getArguments();
-            Item_estafa element= (Item_estafa) b.getSerializable(ELEMENT);
-            Boolean isLoged=b.getBoolean(LOG_OK);
+            this.element= (Item_estafa) b.getSerializable(ELEMENT);
+             isLoged=b.getBoolean(LOG_OK);
             String nombre_usuario=b.getString(NICK);
 
             if(element!=null){ // se ha pulsado un item-- envia 2 peticiones (los detalle, y comentarios de este item) al servidor
@@ -138,40 +152,51 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
                conexion.enviarMensaje_alServidor(GET_COMMENTS_ESTAFA+SEPARADOR+Integer.toString(element.getId()));
                String comments=conexion.recibirMensaje_delServidor(); // 2022/03/09:otra m:n14:;2022/03/09:comentariod XX:n:;
 
-                conexion.enviarMensaje_alServidor(GET_TAGS+SEPARADOR+id_estafa);
-                String tags=conexion.recibirMensaje_delServidor();
+               conexion.enviarMensaje_alServidor(GET_TAGS+SEPARADOR+id_estafa);
+               String tags=conexion.recibirMensaje_delServidor();
+
+
+
+               conexion.enviarMensaje_alServidor(GET_CONTADOR_VISTAS+SEPARADOR+id_estafa);
+               String contador_visitas=conexion.recibirMensaje_delServidor();
+               tv_det_contadorVisistas.setText(contador_visitas);
 
                // Log.v(TAG_MAIN, " DETALLES ||------------TAGS: "+tags);
-                if(!tags.equals("")){
+               if(!tags.equals("")){
                     layout_det_tags.setVisibility(View.VISIBLE);
                     tv_det_tags.setText(tags);
                 }
 
-                if(comments.contains(PUNTO_Y_COMA)){
+               if(comments.contains(PUNTO_Y_COMA)){
                     String[] vstr=comments.split(PUNTO_Y_COMA);
-                    String fecha="";
+                    String fecha_publicacion="";
                     String nick_publica="";
                     String contenido="";
 
                     for (int i = 0; i <vstr.length ; i++) {
                         String[] tupla = vstr[i].split(SEPARADOR);
-                        fecha=tupla[0];
+                        fecha_publicacion=tupla[0];
+
+                        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+                        String dateNow=df.format(new Date());
+
+                       // String fecha_convertida=Convertidor_fecha.findDifference(fecha_publicacion, dateNow);
                         contenido=tupla[1];
                         nick_publica=tupla[2];
-                        this.lista_comments.add(new Item_comment(fecha, contenido, nick_publica));
+                        this.lista_comments.add(new Item_comment(fecha_publicacion, contenido, nick_publica));
                     }
-                }
+               }
 
              //  setId_estafa(id_estafa);
-               this.tv_det_nick.setText(""+nombre_usuario);
+               this.tv_det_nick.setText(""+element.getNombre());
                this.tv_date.setText(element.getFecha());
                this.tv_det_titulo.setText(element.getTitulo());
                this.tv_det_category.setText(element.getCategory());
                this.tv_det_contenido.setText(element.getContenido());
-                String[] str_claveValor=null;
-                str_claveValor=ss.split(PUNTO_Y_COMA);
+               String[] str_claveValor=null;
+               str_claveValor=ss.split(PUNTO_Y_COMA);
 
-                if(str_claveValor!=null && str_claveValor.length>=2){
+               if(str_claveValor!=null && str_claveValor.length>=2){
 
                     for(String s: str_claveValor){
 
@@ -200,7 +225,7 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
                     }
 
                     }
-                }
+               }
 
            }
 
@@ -215,9 +240,11 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
 
         }
 
-        RecyclerView recyclerView=view.findViewById(R.id.recycle_det_comentario);
+        recyclerView=view.findViewById(R.id.recycle_det_comentario);
         recyclerView.setHasFixedSize(true);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        setRecyclerView(recyclerView);
         listAdapter=new List_commentAdapter(this.lista_comments, getContext());
         recyclerView.setAdapter(listAdapter);
 
@@ -228,21 +255,41 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
             public void onClick(View v) {
                 Date date=new Date();
                 // establece la fecha
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
                 String fecha_str = sdf.format(date);
 
                 String comment=et_comentario.getText().toString();
                 int id=getId_estafa();
 
-                String msg= COMENTARIO +SEPARADOR+comment+SEPARADOR+Integer.toString(id)+SEPARADOR+fecha_str;
+                String msg= COMENTARIO +SEPARADOR+comment+SEPARADOR+Integer.toString(id)+SEPARADOR+fecha_str+SEPARADOR; //+ id_estafa/element
 
                 if(!TextUtils.isEmpty(msg)){
                     String respuestaServer= interface_comunica.icomunicacion(msg, R.id.btn_det_enviar_comment);
-                    Log.v(TAG_MAIN, "||------------id_estafa : "+respuestaServer);
+                    et_comentario.setText("");
+                    tv_det_respuestaServer.setText(respuestaServer);
+
+                    // comentario solo tiempo difinido
+                    Timer t = new Timer(false);
+                    t.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            activity.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    tv_det_respuestaServer.setText("");
+                                }
+                            });
+                        }
+                    }, 5000); //5000 equivale a 5 segundos (en milisegundos)
+
+                    refrescarFragment( v,getRecyclerView() );// refresca
 
                 }
             }
         });
+
+        // no funciona
+        if (et_comentario.isFocusable())
+            tv_det_respuestaServer.setText("");
 
         return view;
     }
@@ -253,6 +300,22 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
 
     public void setId_estafa(int id_estafa) {
         this.id_estafa = id_estafa;
+    }
+
+    public Item_estafa getElement() {
+        return element;
+    }
+
+    public void setElement(Item_estafa element) {
+        this.element = element;
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public void setRecyclerView(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
     }
 
     //   comprueba q la Act  impl la IF del fragment
@@ -279,6 +342,104 @@ public class DetallesFragment extends Fragment  {//implements  ListEstafaFragmen
         interface_comunica = null;
     }
 
+public  void refrescarFragment(View v, RecyclerView rv){
+    this.id_estafa=element.getId();
 
+    conexion = ConexionServer.getINSTANCE();
+    conexion.enviarMensaje_alServidor(GET_DETALLES_ESTAFAS+SEPARADOR+Integer.toString(element.getId()));
+    String ss=conexion.recibirMensaje_delServidor();
+
+    conexion.enviarMensaje_alServidor(GET_COMMENTS_ESTAFA+SEPARADOR+Integer.toString(element.getId()));
+    String comments=conexion.recibirMensaje_delServidor(); // 2022/03/09:otra m:n14:;2022/03/09:comentariod XX:n:;
+
+    conexion.enviarMensaje_alServidor(GET_TAGS+SEPARADOR+id_estafa);
+    String tags=conexion.recibirMensaje_delServidor();
+
+
+    conexion.enviarMensaje_alServidor(GET_CONTADOR_VISTAS+SEPARADOR+id_estafa);
+    String contador_visitas=conexion.recibirMensaje_delServidor();
+    tv_det_contadorVisistas.setText(contador_visitas);
+
+    if(!tags.equals("")){
+        layout_det_tags.setVisibility(View.VISIBLE);
+        tv_det_tags.setText(tags);
+    }
+   this.lista_comments=new ArrayList<>();
+    if(comments.contains(PUNTO_Y_COMA)){
+        String[] vstr=comments.split(PUNTO_Y_COMA);
+        String fecha_publicacion="";
+        String nick_publica="";
+        String contenido="";
+
+        for (int i = 0; i <vstr.length ; i++) {
+            String[] tupla = vstr[i].split(SEPARADOR);
+            fecha_publicacion=tupla[0];
+
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+            String dateNow=df.format(new Date());
+
+            // String fecha_convertida=Convertidor_fecha.findDifference(fecha_publicacion, dateNow);
+            contenido=tupla[1];
+            nick_publica=tupla[2];
+            this.lista_comments.add(new Item_comment(fecha_publicacion, contenido, nick_publica));
+        }
+    }
+
+    //  setId_estafa(id_estafa);
+    this.tv_det_nick.setText(""+element.getNombre());
+    this.tv_date.setText(element.getFecha());
+    this.tv_det_titulo.setText(element.getTitulo());
+    this.tv_det_category.setText(element.getCategory());
+    this.tv_det_contenido.setText(element.getContenido());
+    String[] str_claveValor=null;
+    str_claveValor=ss.split(PUNTO_Y_COMA);
+
+    if(str_claveValor!=null && str_claveValor.length>=2){
+
+        for(String s: str_claveValor){
+
+            int separa=s.indexOf(SEPARADOR_dats);
+            String clave=s.substring(0, separa);
+            String valor=s.substring(separa+1);
+            //   Log.v(TAG_MAIN, " DETALLES ||-----------separa: "+clave+" valor "+valor);
+
+            switch (clave){
+                case NOMBRE:
+                    layout_det_nombre.setVisibility(View.VISIBLE);
+                    tv_det_nombre.setText(valor);
+                    break;
+                case EMAIL:
+                    layout_det_email.setVisibility(View.VISIBLE);
+                    tv_det_email.setText(valor);
+                    break;
+                case URL:
+                    layout_det_url.setVisibility(View.VISIBLE);
+                    tv_det_url.setText(valor);
+                    break;
+                case TELEFONO:
+                    layout_det_phone.setVisibility(View.VISIBLE);
+                    tv_det_phone.setText(valor);
+                    break;
+            }
+
+        }
+    }
+
+      if(isLoged){ // si esta loged se muestra layout poner comment
+        layout_comentario.setVisibility(View.VISIBLE);
+        tv_det_isLog.setVisibility(v.GONE);
+       }else{
+        layout_comentario.setVisibility(View.GONE);
+        tv_det_isLog.setVisibility(v.VISIBLE);
+        tv_det_isLog.setText(R.string.det_Logged);
+      }
+
+
+      List_commentAdapter  listAdapter=new List_commentAdapter(this.lista_comments, getContext());
+      rv.setAdapter(listAdapter);
+
+
+
+    }
 
 }

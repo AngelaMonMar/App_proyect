@@ -3,12 +3,9 @@
     <style name="Theme.App_proyect" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/md_blue_500</item>
-        <item name="colorPrimaryDark">@color/md_blue_700</item>
+        <item name="colorPrimaryDark">@color/md_blue_900</item>
         <item name="colorAccent">@color/teal_200</item>
         <!-- Customize your theme here. -->
-
-
-
 
     </style>
 

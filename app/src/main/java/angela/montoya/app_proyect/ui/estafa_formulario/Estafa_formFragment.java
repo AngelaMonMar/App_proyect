@@ -63,6 +63,9 @@ public class Estafa_formFragment extends Fragment implements AdapterView.OnItemS
     private EditText et_email_estafador;
     private EditText et_url_estafador;
     private EditText et_anunciado;
+    private Activity activity;
+
+    private EditText tv_error_register_denuncia;
 
     private Button btn_enviar_estafa;
     private   List<CheckBox> listado_checkboxs=new ArrayList<>();
@@ -71,9 +74,9 @@ public class Estafa_formFragment extends Fragment implements AdapterView.OnItemS
     private Interface_comunica interface_comunica;
     private String datos_delMap="";
 
-    List<String> lista_conCategoria=new ArrayList<>();
+   private List<String> lista_conCategoria=new ArrayList<>();
 
-
+    // Log.v(TAG_DENUNCIA, "||------------------------- : "+ msg);
 
     public static Estafa_formFragment newInstance() {
         return new Estafa_formFragment();
@@ -110,6 +113,7 @@ public class Estafa_formFragment extends Fragment implements AdapterView.OnItemS
         et_email_estafador=view.findViewById(R.id.et_email_estafador);
         et_url_estafador=view.findViewById(R.id.et_url_estafador);
         et_anunciado=view.findViewById(R.id.et_anunciado);
+        tv_error_register_denuncia=view.findViewById(R.id.tv_error_register_denuncia);
         btn_enviar_estafa=view.findViewById(R.id.btn_enviar_estafa);
 
         Date date=new Date();
@@ -164,10 +168,16 @@ public class Estafa_formFragment extends Fragment implements AdapterView.OnItemS
         this.btn_enviar_estafa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str_datos=damedatos_aEnvia();
-                String msg=REGISTRAR_ESTAFA+SEPARADOR+str_datos; //REGISTRAR_ESTAFA: titulo: comentario: checboxs: resto datos
-               // Log.v(TAG_DENUNCIA, "||------------------------- : "+ msg);
-                interface_comunica.icomunicacion(msg, R.id.btn_enviar_estafa);
+                validarAntesEnviar();
+                if(validation.validate()){
+                    String str_datos=damedatos_aEnvia();
+                    String msg=REGISTRAR_ESTAFA+SEPARADOR+str_datos; //REGISTRAR_ESTAFA: titulo: comentario: checboxs: resto datos
+                    interface_comunica.icomunicacion(msg, R.id.btn_enviar_estafa);
+                }else{
+                    tv_error_register_denuncia.setText("El titulo (máximo 100 carateres),\ncontenido(máximo 500 caracteres).");
+                }
+
+
             }
         });
     }
@@ -176,9 +186,6 @@ public class Estafa_formFragment extends Fragment implements AdapterView.OnItemS
         String titulo="", nombre="", phone="",email="", url="", comentario="";
         String str_checkboxs="";
         String str_datos_estafador="";
-
-        validarAntesEnviar();
-
          if(validation.validate()){
 
             titulo=et_titulo.getText().toString();//titulo y comentario obligatorio obligatorio
@@ -232,15 +239,18 @@ public class Estafa_formFragment extends Fragment implements AdapterView.OnItemS
 
 
     private void validarAntesEnviar() {
+        String regexTitulo = ".{1,5}";
+        String regexContenido = ".{1,500}";
+
         this.validation.addValidation(this.getActivity(),R.id.et_titulo_estafa,
-                RegexTemplate.NOT_EMPTY,
-                R.string.invalid_name);
+                regexTitulo,
+                R.string.invalid_titulo);
         this.validation.addValidation(this.getActivity(),R.id.et_anunciado ,
-                ".{2,}",
+                ".{2,500}",
                 R.string.invalid_name);
     }
 
-    Activity activity;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

@@ -21,12 +21,15 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import angela.montoya.app_proyect.R;
 import angela.montoya.app_proyect.ui.gallery.Item_estafa;
+import angela.montoya.app_proyect.utils.Convertidor_fecha;
 
 import static angela.montoya.app_proyect.utils.Protocolo.SEPARADOR;
 import static angela.montoya.app_proyect.utils.Protocolo.TAG_MAIN;
@@ -40,7 +43,7 @@ public class ListEstafaFragment extends Fragment  implements SearchView.OnQueryT
     public ListAdapter listAdapter;
     private iEnvio elCallback; // obj IF
     private Context mContext;
-
+    private TextView tv_empty;
 
 
     public ListAdapter getListAdapter() {
@@ -68,9 +71,9 @@ public class ListEstafaFragment extends Fragment  implements SearchView.OnQueryT
         recyclerView=view.findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-
+        tv_empty = view.findViewById(R.id.tv_empty);
         View layout = inflater.inflate(R.layout.fragment_list_estafa, container, false);
-        TextView emptyTextView = (TextView) layout.findViewById(android.R.id.empty);
+
 
 
 //------------optengo lo enviado desde R.id.btn_enviar_estafa
@@ -85,21 +88,33 @@ public class ListEstafaFragment extends Fragment  implements SearchView.OnQueryT
                 String category="";
                 String fecha="";
                 String contenido="";
+                String nombre_publico="";
 
                 for (int i = 0; i <vStr.length ; i++) {
                     String [] tupla=vStr[i].split(SEPARADOR);
                     str_id=tupla[0];
                     titulo=tupla[1];
                     fecha=tupla[2];
+
+                  //  Log.v(TAG_MAIN, "||---------------fechax : "+fecha);
+                   // String fecha_convertida=getFechaConvertida(fecha);
+                   // Log.v(TAG_MAIN, "||---------------fechau : "+fecha_convertida);
+
+
                     contenido=tupla[3];
                     category=tupla[4];
+                    nombre_publico=tupla[5];
                     if(!TextUtils.isEmpty(str_list)){ //String color, String titulo, String category, String fecha, String contenido
-                        this.lista.add(new Item_estafa(Integer.parseInt(str_id), getColor(), titulo, category, fecha, contenido));
+                        this.lista.add(new Item_estafa(Integer.parseInt(str_id), getColor(), titulo, category,
+                                fecha,//fecha
+                                contenido, 0,nombre_publico ));
                     }
                 }
+            }else{
+                tv_empty.setText("Sin resultados.");
             }
-        }
 
+        }
         // item a la escucha
         listAdapter=new ListAdapter(this.lista, R.layout.item_list, getContext(),
                 new ListAdapter.OnItemClickListenerX(){
@@ -123,6 +138,25 @@ public class ListEstafaFragment extends Fragment  implements SearchView.OnQueryT
         return view;
     }
 
+    private String getFechaConvertida(String fecha) {
+        String salida="";
+        if(fecha.length()>14){// para q no casque fecha old
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+            String ahora=df.format(new Date());
+
+            String fecha_publicacion= fecha;
+            salida=Convertidor_fecha.findDifference(fecha_publicacion, ahora);
+        }else{
+            salida=fecha;
+        }
+
+
+        Log.v("-----------FECHA",salida );
+
+        return salida;
+
+    }
+
     // Menu Search
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -135,7 +169,7 @@ public class ListEstafaFragment extends Fragment  implements SearchView.OnQueryT
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-
+    // filtrado
     @Override
     public boolean onQueryTextSubmit(String s) {
         return true;
@@ -180,6 +214,16 @@ public class ListEstafaFragment extends Fragment  implements SearchView.OnQueryT
 
     }
 
+    @Override
+    public boolean onMenuItemActionExpand(MenuItem item) {
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem item) {
+        return true;
+    }
+// fin filtrado
 
 
     @Override
@@ -217,17 +261,6 @@ public class ListEstafaFragment extends Fragment  implements SearchView.OnQueryT
         super.onDetach();
         elCallback = null;
     }
-
-    @Override
-    public boolean onMenuItemActionExpand(MenuItem item) {
-        return true;
-    }
-
-    @Override
-    public boolean onMenuItemActionCollapse(MenuItem item) {
-        return true;
-    }
-
     //--------------Fin onAttach y detach
 
 

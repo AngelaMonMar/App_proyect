@@ -4,6 +4,10 @@ public class Protocolo {
     public static final String MESSAGE = "MESSAGE";
     public static final String ObjModeloCl = "ObjModeloCl";
 
+    public final static String OK = "OK"; // AUXILIARES
+    public final static String NOT_OK = "NOT_OK";
+
+
     public static final String NAME = "NAME";
     public static final String PW = "PW";
     public final static String SEPARADOR = ":";
@@ -21,6 +25,7 @@ public class Protocolo {
     public final static String ENVIAR = "ENVIAR";
     public final static String LOGIN = "LOGIN";
     public final static String REGISTER = "REGISTER";
+    public final static String ROL_APPCL = "ROL_APPCL";// REGISTER_FORM : nombre : nick : email : password : ROL_APPCL
 
     public final static String LOGIN_OK = "LOGIN_OK";
     public final static String LOGIN_NOT_OK = "LOGIN_NOT_OK"; //LOGIN_NOT_OK: errorStr, LOGIN_OK: nombreUsusario
@@ -76,6 +81,7 @@ public class Protocolo {
     public final static String GET_LIST_ESTAFAS = "GET_LIST_ESTAFAS";
     public final static String GET_DETALLES_ESTAFAS= "GET_DETALLES_ESTAFAS";// llamado desde detailsFrag -GET_DETALLES_ESTAFAS+SEPARADOR
     public final static String GET_COMMENTS_ESTAFA="GET_COMMENTS_ESTAFA"; // enviado desde details GET_COMMENTS_ESTAFA+SEPARADOR+ID_ESTAFA
+    public final static String GET_CONTADOR_VISTAS="GET_CONTADOR_VISTAS";
 
     public final static String NICK="NICK";
     public final static String LOG_OK="LOG_OK";

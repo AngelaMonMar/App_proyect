@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">Only Estafas</string>
+    <string name="app_name">    Only Estafas</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_info">Información</string>
 
     <string name="search">Search</string>
-    <string name="menu_home">Home</string>
+    <string name="menu_home">Host </string>
     <string name="menu_lista_estafas">Listado estafas</string>
     <string name="menu_detalles_estafas">Estafa detallada</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -17,10 +17,9 @@
     <string name="menu_estafa"> Formulario Estafa</string>
     <string name="menu_Cambiar_password">  Cambiar contraseña</string>
     <string name="menu_comment">Estafa detallada</string>
-    <string name="menu_contacto">Email</string>
+    <string name="menu_contacto">Contactar </string>
 
     <string name="menu_olvidoPw">Resetear Mi Contraseña</string>
-
 
     <string name="hint_username">Nick </string>
     <string name="hint_password">Contraseña</string>
@@ -40,6 +39,9 @@
     <string name="text_signin_signup">no tengo una cuenta <b>Registrarse</b></string>
     <string name="text_signup_terms">Al registrarte, aceptas nuestros <b>términos y condiciones</b></string>
     <string name="text_signup_message">Formulario de registro</string>
+    <string name="txt_error_datos_login">Los datos introducidos son incorrectos</string>
+
+    <string name="txt_error_login">No estas registrado/a/e.Inténtelo de nuevo </string>
 
     <string name="text_forgot_password_title">¿Se te olvidó tu contraseña? No hay problema</string>
     <string name="text_forgot_password_message">Introduce el correo electrónico que has usado y te enviaremos un e-mail para restablecer tu contraseña</string>
@@ -52,23 +54,36 @@
     <string name="invalid_email">Please enter a valid email</string>
     <string name="invalid_nick">invalid_nick</string>
     <string name="invalid_phone">invalid_phone</string>
-    <string name="invalid_confirm_password">Password does not match</string>
+    <string name="invalid_confirm_password">Contraseña deben de ser iguales</string>
+    <string name="invalid_titulo">Titulo invalido, máximo 100 caracteres</string>
+    <string name="invalid_contenido">Máximo 500 caracteres</string>
+
+    <string name="invalid_max_titulo">Máximo 100 caracteres</string>
+    <string name="invalid_max_contenido">Máximo 500 caracteres</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="action_logout">Logout</string>
 
     <!--comentario en detallaes en caso q no este logged-->
     <string name="det_Logged">Es necesario que esten registrado y logueado para poder comentar.</string>
 
+    <string name="txt_informacion"> <b><font color="#2196F3" textsize="32sp">Only Estafas </font></b> es una aplicación de busquedas de estafas publicadas por los usuarios.
+        Pueden ver los detalles de una estafa pulsando sobre ella en el listado. \n\nSi quieren publicar o comentar deben de estar registrados y logueados.
+        \n\nSi desean ponerse en conctacto con el administrador pueden hacerlo a traves del apartado contacto en el menu o enviandonos un email a
+        <b><font color="#2196F3" textsize="32dp">onlyEstafas@gmail.com</font></b>.
+</string>
 
-    <!--Lista ejemplo, la debe de ser recibida server-->
-    <string-array name="lista_category">
-        <item>Web</item>
-        <item>Mobiliario</item>
-        <item>Redes sociales</item>
-        <item>Empleo</item>
-        <item>Telefónico</item>
-        <item>Otros</item>
-    </string-array>
+    <string name="txt_reglas"><b>1.</b>No se debe insultar o emplear un lenguaje obsceno o blasfemoa.
+                            \n<b>2.</b>No se debe hacer apología de la violencia.
+                            \n3.Cualquier usuario que altere el buen funcionamiento del foro mediante reiteradas quejas,
+                            desprecio a los moderadores y/o a la administración o las normas de uso del foro será expulsado del mismo.
+                            \n4.<b><font color="#2196F3" textsize="32sp">Only Estafas </font></b> no será responsable de las opiniones,
+                            comentarios por parte de los usuarios que contravengan estas normas.
+    </string>
+    <string name="txt_info_regla">Reglas</string>
+    <string name="enviar_email">Enviar</string>
+
 </resources>
+
+<!--https://es.stackoverflow.com/questions/34401/negrita-en-una-parte-de-un-textview-->

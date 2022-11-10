@@ -85,9 +85,7 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
     private MenuItem item_form_register;
     private MenuItem item_form_login;
 
-
-
-
+    private TextView tv_navheaderTop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
                // Toast.makeText(MainActivity.this, "menuItem.getItemId() "+menuItem.getItemId(), Toast.LENGTH_SHORT).show();
                 switch (menuItem.getItemId()) {
                     case R.id.nav_home:
-                        Toast.makeText(MainActivity.this, "home ", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(MainActivity.this, "home ", Toast.LENGTH_SHORT).show();
                         fragment = new HomeFragment();
                         fragmentTransaction = true;
                         getSupportActionBar().setTitle(getText(R.string.menu_home));
@@ -181,13 +179,12 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
                         getSupportActionBar().setTitle(getText(R.string.menu_lista_estafas));
                         break;
                     case R.id.nav_login:
-                        Toast.makeText(MainActivity.this, "R.id.login ", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "R.id.login ", Toast.LENGTH_SHORT).show();
                         fragment = new LoginFragment();
                         fragmentTransaction = true;
                         getSupportActionBar().setTitle(getText(R.string.menu_login));
                         break;
                     case R.id.nav_register:
-                        Toast.makeText(MainActivity.this, "R.id.reguister ", Toast.LENGTH_SHORT).show();
                         fragment = new Register_formFragment();
                         fragmentTransaction = true;
                         getSupportActionBar().setTitle(getText(R.string.menu_register));
@@ -198,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
                         conexion.enviarMensaje_alServidor(GET_TAGS+SEPARADOR);
                         String tags=conexion.recibirMensaje_delServidor();
 
-                        Toast.makeText(MainActivity.this, "publica estafa "+categorias, Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(MainActivity.this, "publica estafa "+categorias, Toast.LENGTH_SHORT).show();
 
                         bundle = new Bundle();
                         bundle.putString(GET_CATEGORIES,categorias);
@@ -215,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
                     case R.id.nav_contacto:
                         fragment = new ContactoFragment();
                         fragmentTransaction = true;
-                        getSupportActionBar().setTitle(getText(R.string.menu_estafa));
+                        getSupportActionBar().setTitle(getText(R.string.menu_contacto));
                         break;
                 }
 
@@ -233,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
             }
         });
 
-        //Drawer lateral
+      /*  //Drawer lateral
         NavigationView rightNavigationView = (NavigationView) findViewById(R.id.nav_right_view);
         rightNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -251,10 +248,10 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
                     Toast.makeText(MainActivity.this, "Right Drawer - About", Toast.LENGTH_SHORT).show();
                 }
 
-                drawer.closeDrawer(GravityCompat.END); /*Important Line*/
+                drawer.closeDrawer(GravityCompat.END); *//*Important Line*//*
                 return true;
             }
-        });
+        });*/
 
     }
 
@@ -266,8 +263,17 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_openRight) {
+       /* if (id == R.id.action_openRight) {
             drawer.openDrawer(GravityCompat.END);
+            return true;
+        }*/
+
+        if (id == R.id.action_settings) {
+            Log.v(TAG_MAIN, "||-------------------------onOptionsItemSelected : ");
+
+            Intent intent=new Intent(MainActivity.this, InfoActivity.class);
+            startActivity(intent);
+
             return true;
         }
 
@@ -288,8 +294,6 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
                 super.onBackPressed();
                 System.exit(0);
             }
-    /*        super.onBackPressed();
-            System.exit(0);*/
         }
     }
 
@@ -306,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-    TextView tv_navheaderTop;
+
 
 
     //-Interface que comunica con las fragments y devuelve-> str==la respuesta del servidor
@@ -323,14 +327,12 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
         Fragment fragment;
         switch (elBotonPulsado){
             //fragment LOGIN casos [LOGIN_NOT_OK: errorStr, LOGIN_OK: nombreUsusario]
-            case R.id.button_signIn: // se pulso boton signin[LOGIN]
-                 this.conexion.enviarMensaje_alServidor(data);
-                 Log.v(TAG_MAIN, "||-------------------------button_signIn : "+data);
+            case R.id.button_signIn:
+                 this.conexion.enviarMensaje_alServidor(data);//LOGIN + SEPARADOR + username + SEPARADOR + pw + SEPARADOR + "false"+SEPARADOR+"APPCLIENT";
                  str_recibidoSever= conexion.recibirMensaje_delServidor();
 
                  vstr=str_recibidoSever.split(SEPARADOR);
-                  tv_navheaderTop=findViewById(R.id.tv_navheaderTop); // establece el nombre
-
+                 tv_navheaderTop=findViewById(R.id.tv_navheaderTop); // establece el nombre
 
                  if(vstr[0].equals(LOGIN_OK)){ //LOGIN_OK+SEPARADOR+nombre_ususario+SEPARADOR+CHECKBOX_REGISTRO_TRUE)
                      this.nombre_usuario=vstr[1];
@@ -344,7 +346,7 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
                  }else{
                      estaRegistrado=false;
                      tv_navheaderTop.setText( "NO ____stoy registrado");
-                     str_envia_alFragmnt="No estas registrado/a/e.Inténtelo de nuevo "+str_recibidoSever;
+                     str_envia_alFragmnt="No estas registrado/a/e.";
                  }
                  // la respuesta del server el fragment es el q evalua ??? o el Main???
                  break;
@@ -352,7 +354,6 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
             case R.id.button_signup: //  abre el fragm registro
                 fragment = new Register_formFragment();
                 hacerTransaction(bundle, fragment, R.string.menu_register);
-
                 break;
 
             //fragment REGISTER ok o not_ok
@@ -436,16 +437,25 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
                 Log.v(TAG_MAIN, "||-------------------------button_contactar : "+data);
                 conexion.enviarMensaje_alServidor(CONTACTO+SEPARADOR+data);
                 String s=conexion.recibirMensaje_delServidor();
-                Toast.makeText(this, "Mensaje enviado", Toast.LENGTH_SHORT).show();
 
-                conexion.enviarMensaje_alServidor(GET_LIST_ESTAFAS+SEPARADOR);
-                String listax=conexion.recibirMensaje_delServidor();
-                bundle=new Bundle();
-                bundle.putString("LIST", listax);
-                fragment=new ListEstafaFragment();
-                hacerTransaction(bundle, fragment, R.string.menu_contacto);
+                vstr=s.split(SEPARADOR);// CONTACTO+SEPARADOR+respuesta(OK/NOT_OK
+
+                if(vstr[1].equals(OK)){ // muestra mensaje y vuelve list frag
+                    Toast.makeText(this, "Mensaje enviado", Toast.LENGTH_SHORT).show();
+                    rellena_listaestafa();
+                 /*   conexion.enviarMensaje_alServidor(GET_LIST_ESTAFAS+SEPARADOR);
+                    String listax=conexion.recibirMensaje_delServidor();
+                    bundle=new Bundle();
+                    bundle.putString("LIST", listax);
+                    fragment=new ListEstafaFragment();
+                    hacerTransaction(bundle, fragment, R.string.menu_lista_estafas);*/
+                }
+                else{// enviar mensaje de error
+                    str_envia_alFragmnt=vstr[2];
+                }
+
+
                 break;
-
 
                 //Fragment formulario estafa
             case R.id.btn_enviar_estafa: //// ha pulsado REGISTRAR_ESTAFA: titulo: comentario: checboxs: resto datos
@@ -469,7 +479,7 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
                 break;
 
 
-            case R.id.btn_det_enviar_comment:// / COMENTARIO:'blabla':id_estafa:fecha
+            case R.id.btn_det_enviar_comment:// / COMENTARIO:'blabla':id_estafa:fecha: elemento
                 vstr=data.split(SEPARADOR);
                 String comment=vstr[1];
                 String id_estafa=vstr[2];
@@ -484,15 +494,12 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
 
                 str_recibidoSever= conexion.recibirMensaje_delServidor();
 
-                Log.v(TAG_MAIN, " DATA ||------------DATA: "+data);
-                Log.v(TAG_MAIN, "||------------str_recibidoSever : "+str_recibidoSever);
-
-                str_envia_alFragmnt="Gracias por su comentario";
+                String []vstr2=str_recibidoSever.split(SEPARADOR);//COMENTARIO+SEPARADOR+OK/not_OK:respuesta
+                str_envia_alFragmnt=vstr2[2];
                 enviarToast(str_envia_alFragmnt);
 
-                rellena_listaestafa();
+              //  rellena_listaestafa();
                 break;
-
 
             default:
                 Log.v(TAG_MAIN, "||-------------------------default : "+data);
@@ -587,7 +594,7 @@ public class MainActivity extends AppCompatActivity implements Interface_comunic
             bundle.putBoolean(LOG_OK, isLogueado);
             bundle.putString(NICK, this.nombre_usuario);
             hacerTransaction(bundle,fragment, R.string.menu_detalles_estafas );
-        }else{
+        }else{ // para el activity
             Toast toast = Toast.makeText(getApplicationContext(), "Hi HO hi HO ", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
             //toast.show();

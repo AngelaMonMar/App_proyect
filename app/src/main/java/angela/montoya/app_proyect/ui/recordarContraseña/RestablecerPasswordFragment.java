@@ -73,7 +73,7 @@ public class RestablecerPasswordFragment extends Fragment {
                         String respuestaServer=interface_comunica.icomunicacion(msg, R.id.button_cambiarPassword);
                         tv_error_confirm_pw.setText(respuestaServer);// Aqui solo entra en caso q no se haya surgido E en server
                     }else{ // se puede quitar-- ya es validad
-                        tv_error_confirm_pw.setText(" Contraseña deben de ser iguales");
+                        tv_error_confirm_pw.setText(R.string.invalid_confirm_password);
                         et_password_cambiar.setText("");
                         et_password_cambio_confirm.setText("");
                     }

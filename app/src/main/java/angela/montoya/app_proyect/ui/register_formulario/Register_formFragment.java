@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,15 +26,15 @@ import static angela.montoya.app_proyect.utils.Protocolo.*;
 public class Register_formFragment extends Fragment {
 
     public static final String PW = "PW";
-    Button button_signInRegister;
+    private Button button_signInRegister;
     private EditText et_name, et_nick, et_email;
-    EditText et_password, et_confirm_password, tv_error_register;
+    private EditText et_password, et_confirm_password, tv_error_register;
 
-    AwesomeValidation validation;
-    String email;
-    String password;
-    String nombre;
-    String nick;
+    private AwesomeValidation validation;
+    private String email;
+    private String password;
+    private String nombre;
+    private String nick;
     private Interface_comunica interface_comunica;
 
     private RegisterViewModel mViewModel;
@@ -47,7 +46,7 @@ public class Register_formFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.register_fragment, container, false);
+        View view=inflater.inflate(R.layout.fragment_register, container, false);
         return view;
     }
 
@@ -81,13 +80,11 @@ public class Register_formFragment extends Fragment {
                     password = et_password.getText().toString();
                     String confirm_password = et_confirm_password.getText().toString();
 
-                    //  tv_error_register.setText("--"+et_email+"--"+nombre);
-
                     //compruebo si pw son iguales
                     if (password.equals(confirm_password)) {
                         // usuario=new Usuario(nombre, nick, email,pw);
                         String msg = REGISTER_FORM + SEPARADOR + nombre + SEPARADOR + nick + SEPARADOR +
-                                email + SEPARADOR + password;
+                                email + SEPARADOR + password+SEPARADOR+ROL_APPCL;
 
                         String respuesta = interface_comunica.icomunicacion(msg, R.id.button_signInRegister);
                         Log.v(TAG_REGISTER, "||-------------------------button_signInRegister " + respuesta);
@@ -141,6 +138,7 @@ public class Register_formFragment extends Fragment {
     }
 
     // M valida los datos con AwesomeValidation
+    //https://tutorialwing.com/android-form-validation-using-android-awesomevalidation-library-tutorial/
     private void validarAntesEnviar() {
         this.validation.addValidation(this.getActivity(),R.id.et_name ,
                 RegexTemplate.NOT_EMPTY,
@@ -162,14 +160,12 @@ public class Register_formFragment extends Fragment {
         this.validation.addValidation(this.getActivity(),R.id.et_confirm_password ,
                 ".{2,}",
                 R.string.invalid_confirm_password);
-
-        //probando si de esta manera valida q idems
-
         this.validation.addValidation(this.getActivity(),R.id.et_password, R.id.et_confirm_password ,
                          R.string.invalid_confirm_password);
 
 
     }
+
 
 
 }

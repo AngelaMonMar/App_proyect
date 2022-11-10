@@ -41,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:hint="fecha" />
+                android:hint="fecha"
+                android:textSize="8sp" />
         </LinearLayout>
 
         <TextView
